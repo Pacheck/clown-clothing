@@ -4,7 +4,6 @@ import { withRouter } from "react-router-dom";
 
 import "./index.scss";
 const MenuItem = ({ title, imageUrl, size, history, match, linkUrl }) => {
-  console.log(imageUrl);
   return (
     <div
       className={size ? size + ` menu-item` : `menu-item`}
