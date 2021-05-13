@@ -14,7 +14,7 @@ import "./index.scss";
 
 const CartDropdown = ({ cartItems, history, dispatch }) => {
   const handleCheckout = () => {
-    history.push("./checkout");
+    history.push("/checkout");
     dispatch(toggleCartHidden());
   };
   return (
