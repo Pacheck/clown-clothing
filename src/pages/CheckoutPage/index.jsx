@@ -9,41 +9,48 @@ import CheckoutItem from "../../components/CheckoutItem";
 
 import StripeButton from "../../components/StripeButton";
 
-import "./index.scss";
+import {
+  CheckoutContainer,
+  CheckoutHeader,
+  HeaderBlock,
+  Text,
+  TotalContainer,
+  TestWarning,
+} from "./styles";
 
 const CheckoutPage = ({ cartItems, total }) => {
   return (
-    <div className="checkout-page">
-      <div className="checkout-header">
-        <div className="header-block">
-          <span>Product</span>
-        </div>
-        <div className="header-block">
-          <span>Description</span>
-        </div>
-        <div className="header-block">
-          <span>Quantity</span>
-        </div>
-        <div className="header-block">
-          <span>Price</span>
-        </div>
-        <div className="header-block">
-          <span>Remove</span>
-        </div>
-      </div>
+    <CheckoutContainer>
+      <CheckoutHeader>
+        <HeaderBlock>
+          <Text>Product</Text>
+        </HeaderBlock>
+        <HeaderBlock>
+          <Text>Description</Text>
+        </HeaderBlock>
+        <HeaderBlock>
+          <Text>Quantity</Text>
+        </HeaderBlock>
+        <HeaderBlock>
+          <Text>Price</Text>
+        </HeaderBlock>
+        <HeaderBlock>
+          <Text>Remove</Text>
+        </HeaderBlock>
+      </CheckoutHeader>
       {cartItems.map((item) => (
         <CheckoutItem cartItem={item} key={item.id} />
       ))}
-      <div className="total">
-        <span>TOTAL: ${total}</span>
-      </div>
-      <div className="test-warning">
+      <TotalContainer>
+        <Text>TOTAL: ${total}</Text>
+      </TotalContainer>
+      <TestWarning>
         *Please use this credit card to test*
         <br />
         5555 5555 5555 4444 Exp: 10/22 CVC: 123
-      </div>
+      </TestWarning>
       <StripeButton price={total} />
-    </div>
+    </CheckoutContainer>
   );
 };
 

@@ -8,7 +8,15 @@ import {
   removeItem,
 } from "../../redux/actions/cart.actions";
 
-import "./index.scss";
+import {
+  CheckoutItemContainer,
+  ImageContainer,
+  CheckoutImage,
+  Arrow,
+  QuantityContainer,
+  DisplayInfo,
+  RemoveButton,
+} from "./styles";
 
 const CheckoutItem = ({ cartItem, clearItem, addItem, removeItem }) => {
   const { name, imageUrl, price, quantity } = cartItem;
@@ -20,25 +28,19 @@ const CheckoutItem = ({ cartItem, clearItem, addItem, removeItem }) => {
   const handleDecreaseQuantity = () => removeItem(cartItem);
 
   return (
-    <div className="checkout-item">
-      <div className="image-container">
-        <img src={imageUrl} alt="item" />
-      </div>
-      <span className="name">{name}</span>
-      <span className="quantity">
-        <div className="arrow" onClick={handleDecreaseQuantity}>
-          &#10094;
-        </div>
-        <span className="value">{quantity}</span>
-        <div className="arrow" onClick={handleIncreaseQuantity}>
-          &#10095;
-        </div>
-      </span>
-      <span className="price">${price}</span>
-      <span className="remove-button" onClick={handleRemoveItem}>
-        &#10005;
-      </span>
-    </div>
+    <CheckoutItemContainer>
+      <ImageContainer>
+        <CheckoutImage src={imageUrl} alt="item" />
+      </ImageContainer>
+      <DisplayInfo>{name}</DisplayInfo>
+      <QuantityContainer>
+        <Arrow onClick={handleDecreaseQuantity}>&#10094;</Arrow>
+        <DisplayInfo value>{quantity}</DisplayInfo>
+        <Arrow onClick={handleIncreaseQuantity}>&#10095;</Arrow>
+      </QuantityContainer>
+      <DisplayInfo>${price}</DisplayInfo>
+      <RemoveButton onClick={handleRemoveItem}>&#10005;</RemoveButton>
+    </CheckoutItemContainer>
   );
 };
 
