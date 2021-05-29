@@ -2,14 +2,24 @@ import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
 
+const { 
+    REACT_APP_API_KEY, 
+    REACT_APP_AUTH_DOMAIN, 
+    REACT_APP_PROJECT_ID, 
+    REACT_APP_STORAGE_BUCKET, 
+    REACT_APP_MESSAGING_SENDER_ID, 
+    REACT_APP_ID, 
+    REACT_APP_MEASUREMENT_ID 
+} = process.env;
+
 const config = {
-    apiKey: "AIzaSyBK7tY4cVcDtCTJs087ir8KZw5zQwbb3mk",
-    authDomain: "clown-db-77cea.firebaseapp.com",
-    projectId: "clown-db-77cea",
-    storageBucket: "clown-db-77cea.appspot.com",
-    messagingSenderId: "145565946039",
-    appId: "1:145565946039:web:1eeae69ea8a60da1487d32",
-    measurementId: "G-Q8ZDX93EW5"
+    apiKey: REACT_APP_API_KEY,
+    authDomain: REACT_APP_AUTH_DOMAIN,
+    projectId: REACT_APP_PROJECT_ID,
+    storageBucket: REACT_APP_STORAGE_BUCKET,
+    messagingSenderId: REACT_APP_MESSAGING_SENDER_ID,
+    appId: REACT_APP_ID,
+    measurementId: REACT_APP_MEASUREMENT_ID
 };
 
 
@@ -53,6 +63,25 @@ export const addCollectionAndDocuments = async(collectionKey, objectsToAdd) => {
     return await batch.commit();
 }
 
+
+export const convertCollectionsSnapshotToMap = collections => {
+    const transformedCollection = collections.docs.map(doc => {
+        const { title, items } = doc.data();
+        
+        return {
+            routeName: encodeURI(title.toLowerCase()),
+            id: doc.id,
+            title,
+            items
+        }
+
+    });
+
+    return transformedCollection.reduce((accumulator, collection) => {
+        accumulator[collection.title.toLowerCase()] = collection;
+        return accumulator;
+    }, {})
+}
 
 
 export const auth = firebase.auth();
